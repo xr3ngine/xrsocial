@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { selectAuthState } from '../../../user/reducers/auth/selector';
 import { selectAdminState } from "../../reducers/admin/selector";
 import { PropsTable, columns, Data } from "./variables";
-import { useStyles } from "./style";
+import { useStyle, useStyles } from "./style";
 import { selectAdminPartyState } from "../../reducers/admin/party/selector";
 
 const mapDispatchToProps = (dispatch: Dispatch): any => ({
@@ -28,15 +28,16 @@ const mapStateToProps = (state: any): any => {
 };
 
 const PartyTable = (props: PropsTable) => {
-    const classes = useStyles();
-    const { 
-        fetchAdminParty,  
-        authState, 
-        adminPartyState 
+    const classes = useStyle();
+    const classex = useStyles();
+    const {
+        fetchAdminParty,
+        authState,
+        adminPartyState
     } = props;
 
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rowsPerPage, setRowsPerPage] = React.useState(12);
 
     const user = authState.get("user");
     const adminParty = adminPartyState.get("parties");
@@ -51,28 +52,27 @@ const PartyTable = (props: PropsTable) => {
         setPage(0);
     };
 
-    React.useEffect(()=> {
-        if(user.id && adminParty.get('updateNeeded') === true){
+    React.useEffect(() => {
+        if (user.id && adminParty.get('updateNeeded') === true) {
             fetchAdminParty();
         }
     }, [authState, adminPartyState]);
 
-   const createData = (id: string, instance: string, location: string ): Data => {
+    const createData = (id: string, instance: string, location: string): Data => {
         return {
             id,
             instance,
             location,
             action: (
                 <>
-                <a href="#h" className={classes.actionStyle}> View </a>
-                <a href="#h" className={classes.actionStyle}> Edit </a>
-                <a href="#h" className={classes.actionStyle}><span className={classes.spanDange}>Delete</span></a>
-            </>
+                    <a href="#h" className={classes.actionStyle}> <span className={classes.spanWhite}>View</span> </a>
+                    <a href="#h" className={classes.actionStyle}><span className={classes.spanDange}>Delete</span></a>
+                </>
             )
         };
-   };
+    };
 
-   const rows = adminPartyData.map(el => createData(el.id, el.instance.ipAddress || <span className={classes.spanNone}>None</span>, el.location.name || <span className={classes.spanNone}>None</span> ));
+    const rows = adminPartyData.map(el => createData(el.id, el.instance.ipAddress || <span className={classes.spanNone}>None</span>, el.location.name || <span className={classes.spanNone}>None</span>));
 
     return (
         <div className={classes.root}>
@@ -85,6 +85,7 @@ const PartyTable = (props: PropsTable) => {
                                     key={column.id}
                                     align={column.align}
                                     style={{ minWidth: column.minWidth }}
+                                    className={classex.tableCellHeader}
                                 >
                                     {column.label}
                                 </TableCell>
@@ -98,7 +99,11 @@ const PartyTable = (props: PropsTable) => {
                                     {columns.map((column) => {
                                         const value = row[column.id];
                                         return (
-                                            <TableCell key={column.id} align={column.align}>
+                                            <TableCell
+                                                key={column.id}
+                                                align={column.align}
+                                                className={classex.tableCellBody}
+                                            >
                                                 {value}
                                             </TableCell>
                                         );
@@ -110,13 +115,14 @@ const PartyTable = (props: PropsTable) => {
                 </Table>
             </TableContainer>
             <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
+                rowsPerPageOptions={[12]}
                 component="div"
                 count={rows.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
+                className={classex.tableFooter}
             />
         </div>
     );

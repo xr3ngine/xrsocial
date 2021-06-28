@@ -1,21 +1,15 @@
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
-// @ts-ignore
-import styles from '../Admin.module.scss';
 import Button from '@material-ui/core/Button';
-import Search from "../Search";
-import { makeStyles, Theme } from "@material-ui/core/styles";
+import Search from "./SearchParty";
 import PartyTable from './PartyTable';
 import CreateParty from "./CreateParty";
+import { useStyle, useStyles } from "./style";
 
-const useStyles = makeStyles((theme: Theme) => ({
-    marginBottom: {
-        marginBottom: "10px"
-    }
-}));
 
 const Party = () => {
-    const classes = useStyles();
+    const classes = useStyle();
+    const classex = useStyles();
     const [partyModelOpen, setPartyModelOpen] = React.useState(false);
 
 
@@ -29,13 +23,13 @@ const Party = () => {
 
     return (
         <div>
-            <Grid container spacing={3} className={classes.marginBottom}>
+            <Grid container spacing={3} className={classes.marginBottm}>
                 <Grid item xs={9}>
-                    <Search typeName="party" />
+                    <Search />
                 </Grid>
                 <Grid item xs={3}>
                     <Button
-                        className={styles.createLocation}
+                        className={classex.createBtn}
                         type="submit"
                         variant="contained"
                         color="primary"
@@ -45,11 +39,12 @@ const Party = () => {
                     </Button>
                 </Grid>
             </Grid>
-            <PartyTable/>
-
+            <div className={classex.rootTable}>
+                <PartyTable />
+            </div>
             <CreateParty
-               open={partyModelOpen}
-               handleClose={handleCreatePartyClose}
+                open={partyModelOpen}
+                handleClose={handleCreatePartyClose}
             />
         </div>
     );

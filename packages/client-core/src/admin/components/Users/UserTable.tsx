@@ -138,7 +138,11 @@ const UserTable = (props: Props) => {
                                     {columns.map((column) => {
                                         const value = row[column.id];
                                         return (
-                                            <TableCell key={column.id} align={column.align} className={classx.tableCellBody}>
+                                            <TableCell
+                                                key={column.id}
+                                                align={column.align}
+                                                className={classx.tableCellBody}
+                                            >
                                                 {value}
                                             </TableCell>
                                         );
