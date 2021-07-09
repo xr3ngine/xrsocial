@@ -120,8 +120,8 @@ const PartyTable = (props: PropsTable) => {
                 count={rows.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
                 className={classex.tableFooter}
             />
         </div>

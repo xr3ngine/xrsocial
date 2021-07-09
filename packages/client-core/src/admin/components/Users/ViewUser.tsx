@@ -206,12 +206,26 @@ const ViewUser = (props: Props) => {
         setOpenWarning(false);
     };
 
+    const handleCloseDrawe = () => {
+        setError("");
+        setOpenWarning(false);
+        closeViewModel(false);
+        setState({
+            ...state,
+            formErrors: {
+                ...state.formErrors,
+                name: "",
+                avatar: "",
+            }
+        })
+    }
+
     return (
         <React.Fragment>
             <Drawer
                 anchor="right"
                 open={openView}
-                onClose={() => closeViewModel(false)}
+                onClose={() => handleCloseDrawe()}
                 classes={{ paper: classx.paper }}
             >
                 {userAdmin &&
@@ -372,7 +386,7 @@ const ViewUser = (props: Props) => {
                                         EDIT
                                     </Button>
                                     <Button
-                                        onClick={() => closeViewModel(false)}
+                                        onClick={() => handleCloseDrawe()}
                                         className={classx.saveBtn}
                                     >
                                         CANCEL
