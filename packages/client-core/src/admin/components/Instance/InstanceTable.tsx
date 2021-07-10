@@ -131,8 +131,8 @@ const InstanceTable = (props: Props) => {
                 count={12}
                 rowsPerPage={rowsPerPage}
                 page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
                 className={classex.tableFooter}
             />
         </div>

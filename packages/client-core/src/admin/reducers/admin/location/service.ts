@@ -18,10 +18,11 @@ export function fetchLocationTypes() {
   }
   export function patchLocation(id: string, location: any) {
     return async (dispatch: Dispatch): Promise<any> => {
-      try {
-        const result = await client.service('location').patch(id, location);
+      try {      
+        const result = await client.service('location').patch(id, location)
         dispatch(locationPatched(result));
       } catch (err) {
+        console.error(err);
         dispatchAlertError(dispatch, err.message);
       }
     };

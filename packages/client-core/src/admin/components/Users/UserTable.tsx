@@ -138,7 +138,11 @@ const UserTable = (props: Props) => {
                                     {columns.map((column) => {
                                         const value = row[column.id];
                                         return (
-                                            <TableCell key={column.id} align={column.align} className={classx.tableCellBody}>
+                                            <TableCell
+                                                key={column.id}
+                                                align={column.align}
+                                                className={classx.tableCellBody}
+                                            >
                                                 {value}
                                             </TableCell>
                                         );
@@ -155,8 +159,8 @@ const UserTable = (props: Props) => {
                 count={count || 12}
                 rowsPerPage={rowsPerPage}
                 page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
                 className={classx.tableFooter}
             />
             <Dialog
